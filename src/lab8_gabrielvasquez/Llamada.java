@@ -1,7 +1,5 @@
 package lab8_gabrielvasquez;
 
-import java.util.Date;
-
 public class Llamada {
  
     private String emisor;
@@ -10,7 +8,7 @@ public class Llamada {
     private String tiempo;
 
     public Llamada(String receptor, String fecha, String tiempo) {
-        this.emisor = "Diego";
+        this.emisor = "Rigby";
         this.receptor = receptor;
         this.fecha = fecha;
         this.tiempo = tiempo;

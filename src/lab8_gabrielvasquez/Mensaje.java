@@ -1,7 +1,5 @@
 package lab8_gabrielvasquez;
 
-import java.util.Date;
-
 public class Mensaje {
  
     private String emisor;
@@ -14,7 +12,7 @@ public class Mensaje {
     }
 
     public Mensaje(String receptor, String envio, String contenido) {
-        this.emisor = "Diego";
+        this.emisor = "Rigby";
         this.receptor = receptor;
         this.envio = envio;
         this.contenido = contenido;

@@ -2,7 +2,9 @@ package lab8_gabrielvasquez;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -11,10 +13,10 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
-        cargarTabla();
+        Cargar();
     }
 
-    public final void cargarTabla() {
+    public final void Cargar() {
         log.conectar();
         try {
             log.query.execute("SELECT Nombre,Edad,Teléfono,Correo,Dirección FROM Contactos");
@@ -35,6 +37,12 @@ public class Principal extends javax.swing.JFrame {
             }
 
             contact_table.setModel(modelo);
+            
+            log.query.execute("SELECT Receptor,Fecha,Contenido FROM Mensajes");
+            ResultSet sr = log.query.getResultSet();
+            while (sr.next()) {
+                buzon.append("Para: " + sr.getString(1) + "\nMensaje: " + sr.getString(3) + "\nEnviado " + sr.getString(2) + "\n\n");
+            }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -80,7 +88,7 @@ public class Principal extends javax.swing.JFrame {
         recipiente = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         mensaje = new javax.swing.JTextArea();
-        jButton3 = new javax.swing.JButton();
+        b_sendMessage = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -92,7 +100,8 @@ public class Principal extends javax.swing.JFrame {
         b_showMD = new javax.swing.JButton();
         b_Call = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        buzon = new javax.swing.JTextArea();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -332,8 +341,13 @@ public class Principal extends javax.swing.JFrame {
         mensaje.setRows(5);
         jScrollPane4.setViewportView(mensaje);
 
-        jButton3.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton3.setText("Enviar");
+        b_sendMessage.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        b_sendMessage.setText("Enviar");
+        b_sendMessage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                b_sendMessageMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jd_newMessageLayout = new javax.swing.GroupLayout(jd_newMessage.getContentPane());
         jd_newMessage.getContentPane().setLayout(jd_newMessageLayout);
@@ -358,7 +372,7 @@ public class Principal extends javax.swing.JFrame {
                                 .addGap(32, 32, 32))))))
             .addGroup(jd_newMessageLayout.createSequentialGroup()
                 .addGap(187, 187, 187)
-                .addComponent(jButton3)
+                .addComponent(b_sendMessage)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jd_newMessageLayout.setVerticalGroup(
@@ -373,7 +387,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(b_sendMessage)
                 .addGap(22, 22, 22))
         );
 
@@ -501,31 +515,29 @@ public class Principal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Contactos", jPanel2);
 
+        buzon.setEditable(false);
+        buzon.setColumns(20);
+        buzon.setRows(5);
+        jScrollPane5.setViewportView(buzon);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 986, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(494, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 562, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(125, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
         );
 
-        jTabbedPane1.addTab("Mensajería", jPanel3);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 986, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 562, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Llamadas", jPanel4);
+        jTabbedPane1.addTab("Historial", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -604,17 +616,17 @@ public class Principal extends javax.swing.JFrame {
 
         try {
             log.conectar();
-            log.query.execute("UPDATE Contactos SET Nombre='" + n + "', Edad='" + e + "', Teléfono='" + t + "', Correo='" + c + "', Dirección='" + d + "' WHERE ID='" + (pos+1) + "'");
+            log.query.execute("UPDATE Contactos SET Nombre='" + n + "', Edad='" + e + "', Teléfono='" + t + "', Correo='" + c + "', Dirección='" + d + "' WHERE ID='" + (pos + 1) + "'");
             log.commit();
-        
+
             chosen.setNombre(n);
             chosen.setEdad(e);
             chosen.setNumero(t);
             chosen.setCorreo(c);
             chosen.setDireccion(d);
-            
+
             JOptionPane.showMessageDialog(this, "Contacto Modificado");
-            
+
         } catch (SQLException ex) {
 
         }
@@ -646,19 +658,19 @@ public class Principal extends javax.swing.JFrame {
         try {
             pos = contact_table.getSelectedRow();
             chosen = contactos.get(pos);
-            
+
             log.conectar();
-            log.query.execute("DELETE FROM Contactos WHERE ID='" + (pos+1) + "'");
+            log.query.execute("DELETE FROM Contactos WHERE ID='" + (pos + 1) + "'");
             log.commit();
-            
+
             DefaultTableModel modelo = (DefaultTableModel) contact_table.getModel();
             modelo.removeRow(pos);
             contact_table.setModel(modelo);
-            
+
             contactos.remove(chosen);
-            
+
             JOptionPane.showMessageDialog(this, "Contacto Eliminado");
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar uno de sus contactos");
         }
@@ -669,18 +681,45 @@ public class Principal extends javax.swing.JFrame {
         try {
             pos = contact_table.getSelectedRow();
             chosen = contactos.get(pos);
+
+            recipiente.setText(chosen.getNombre());
+
+            mensaje.setText("");
             
             jd_newMessage.setModal(true);
             jd_newMessage.pack();
             jd_newMessage.setLocationRelativeTo(this);
             jd_newMessage.setVisible(true);
-            
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar a uno de sus contactos");
         }
-        
-        
+
+
     }//GEN-LAST:event_b_showMDMouseClicked
+
+    private void b_sendMessageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_sendMessageMouseClicked
+        String m = mensaje.getText();
+        String r = recipiente.getText();
+        Date f = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("dd/MMM/yyyy");
+        String d = sf.format(f);
+        
+        log.conectar();
+        try {
+            log.query.execute("INSERT INTO Mensajes"
+                + " (Emisor,Receptor,Fecha,Contenido)"
+                + " VALUES ('Deku', '" + r + "', '" + d + "', '" + m + "')");
+            log.commit();
+            
+            buzon.append("Para: " + r + "\nMensaje: " + m + "\nEnviado " + d + "\n\n");
+            
+            mensaje.setText("");
+            JOptionPane.showMessageDialog(this, "Mensaje Enviado");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_b_sendMessageMouseClicked
 
     public static void main(String args[]) {
         try {
@@ -716,9 +755,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton b_modifyC;
     private javax.swing.JButton b_newContact;
     private javax.swing.JButton b_saveNew;
+    private javax.swing.JButton b_sendMessage;
     private javax.swing.JButton b_showMD;
+    private javax.swing.JTextArea buzon;
     private javax.swing.JTable contact_table;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -736,11 +776,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JDialog jd_modContact;
     private javax.swing.JDialog jd_newContact;

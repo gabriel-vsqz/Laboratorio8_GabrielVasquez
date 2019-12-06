@@ -37,7 +37,7 @@ public class Principal extends javax.swing.JFrame {
             }
 
             contact_table.setModel(modelo);
-            
+
             log.query.execute("SELECT Receptor,Fecha,Contenido FROM Mensajes");
             ResultSet sr = log.query.getResultSet();
             while (sr.next()) {
@@ -89,6 +89,10 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         mensaje = new javax.swing.JTextArea();
         b_sendMessage = new javax.swing.JButton();
+        jd_Call = new javax.swing.JDialog();
+        calling = new javax.swing.JLabel();
+        b_colgar = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -102,6 +106,10 @@ public class Principal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         buzon = new javax.swing.JTextArea();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -391,6 +399,50 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(22, 22, 22))
         );
 
+        calling.setFont(new java.awt.Font("Dialog", 1, 50)); // NOI18N
+        calling.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        b_colgar.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
+        b_colgar.setText("Colgar");
+        b_colgar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                b_colgarMouseClicked(evt);
+            }
+        });
+
+        jLabel17.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("00:00:00");
+
+        javax.swing.GroupLayout jd_CallLayout = new javax.swing.GroupLayout(jd_Call.getContentPane());
+        jd_Call.getContentPane().setLayout(jd_CallLayout);
+        jd_CallLayout.setHorizontalGroup(
+            jd_CallLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_CallLayout.createSequentialGroup()
+                .addGroup(jd_CallLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_CallLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(calling, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jd_CallLayout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addGroup(jd_CallLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(b_colgar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 137, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jd_CallLayout.setVerticalGroup(
+            jd_CallLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_CallLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(calling, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addComponent(b_colgar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -472,6 +524,11 @@ public class Principal extends javax.swing.JFrame {
 
         b_Call.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         b_Call.setText("Llamar");
+        b_Call.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                b_CallMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -520,21 +577,70 @@ public class Principal extends javax.swing.JFrame {
         buzon.setRows(5);
         jScrollPane5.setViewportView(buzon);
 
+        jLabel15.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("Buzón de Salida");
+
+        jLabel16.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("Llamadas");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Duración"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+        }
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(494, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane6)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(125, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36))
         );
 
         jTabbedPane1.addTab("Historial", jPanel3);
@@ -685,7 +791,7 @@ public class Principal extends javax.swing.JFrame {
             recipiente.setText(chosen.getNombre());
 
             mensaje.setText("");
-            
+
             jd_newMessage.setModal(true);
             jd_newMessage.pack();
             jd_newMessage.setLocationRelativeTo(this);
@@ -704,22 +810,38 @@ public class Principal extends javax.swing.JFrame {
         Date f = new Date();
         SimpleDateFormat sf = new SimpleDateFormat("dd/MMM/yyyy");
         String d = sf.format(f);
-        
+
         log.conectar();
         try {
             log.query.execute("INSERT INTO Mensajes"
-                + " (Emisor,Receptor,Fecha,Contenido)"
-                + " VALUES ('Deku', '" + r + "', '" + d + "', '" + m + "')");
+                    + " (Emisor,Receptor,Fecha,Contenido)"
+                    + " VALUES ('Deku', '" + r + "', '" + d + "', '" + m + "')");
             log.commit();
-            
+
             buzon.append("Para: " + r + "\nMensaje: " + m + "\nEnviado " + d + "\n\n");
-            
+
             mensaje.setText("");
             JOptionPane.showMessageDialog(this, "Mensaje Enviado");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_b_sendMessageMouseClicked
+
+    private void b_CallMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_CallMouseClicked
+        pos = contact_table.getSelectedRow();
+        chosen = contactos.get(pos);
+        
+        calling.setText(chosen.getNombre());
+        
+        jd_Call.setModal(true);
+        jd_Call.pack();
+        jd_Call.setLocationRelativeTo(this);
+        jd_Call.setVisible(true);
+    }//GEN-LAST:event_b_CallMouseClicked
+
+    private void b_colgarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_colgarMouseClicked
+        jd_Call.setVisible(false);
+    }//GEN-LAST:event_b_colgarMouseClicked
 
     public static void main(String args[]) {
         try {
@@ -750,6 +872,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_Call;
+    private javax.swing.JButton b_colgar;
     private javax.swing.JButton b_deleteContact;
     private javax.swing.JButton b_modContact;
     private javax.swing.JButton b_modifyC;
@@ -758,6 +881,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton b_sendMessage;
     private javax.swing.JButton b_showMD;
     private javax.swing.JTextArea buzon;
+    private javax.swing.JLabel calling;
     private javax.swing.JTable contact_table;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -765,6 +889,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -781,7 +908,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JDialog jd_Call;
     private javax.swing.JDialog jd_modContact;
     private javax.swing.JDialog jd_newContact;
     private javax.swing.JDialog jd_newMessage;

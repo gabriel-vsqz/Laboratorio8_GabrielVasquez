@@ -1,12 +1,11 @@
 package lab8_gabrielvasquez;
 
-//import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-//import javax.swing.ImageIcon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,8 +15,9 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
 
-//        ImageIcon img = new ImageIcon("./Rigby.png");
-//        icon.setIcon(img);
+        ImageIcon img = new ImageIcon("./Rigby.png");
+        icon.setIcon(img);
+        
         Cargar();
     }
 
@@ -449,35 +449,33 @@ public class Principal extends javax.swing.JFrame {
 
         duration.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
         duration.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        duration.setText("00:00:00");
+        duration.setText("0:0:0");
 
         javax.swing.GroupLayout jd_CallLayout = new javax.swing.GroupLayout(jd_Call.getContentPane());
         jd_Call.getContentPane().setLayout(jd_CallLayout);
         jd_CallLayout.setHorizontalGroup(
             jd_CallLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jd_CallLayout.createSequentialGroup()
-                .addGroup(jd_CallLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jd_CallLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(calling, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jd_CallLayout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addGroup(jd_CallLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(duration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(b_colgar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 137, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(calling, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jd_CallLayout.createSequentialGroup()
+                .addGap(128, 128, 128)
+                .addGroup(jd_CallLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(duration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(b_colgar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         jd_CallLayout.setVerticalGroup(
             jd_CallLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jd_CallLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(calling, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
+                .addGap(65, 65, 65)
                 .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                 .addComponent(b_colgar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addGap(57, 57, 57))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -935,6 +933,7 @@ public class Principal extends javax.swing.JFrame {
 
         calling.setText(chosen.getNombre());
 
+        call = new adminLlamada(duration);
         call.start();
 
         jd_Call.setModal(true);
@@ -945,6 +944,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_b_CallMouseClicked
 
     private void b_colgarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_colgarMouseClicked
+        call.setOnCall(false);
         call.stop();
         
         DefaultTableModel modelo = (DefaultTableModel) table_calls.getModel();
@@ -1052,6 +1052,6 @@ public class Principal extends javax.swing.JFrame {
     ArrayList<Contacto> contactos = new ArrayList();
     int pos;
     Contacto chosen;
-    adminLlamada call = new adminLlamada(duration);
+    adminLlamada call;
 
 }

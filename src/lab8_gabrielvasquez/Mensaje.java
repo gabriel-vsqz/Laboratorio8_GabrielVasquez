@@ -6,14 +6,14 @@ public class Mensaje {
  
     private String emisor;
     private String receptor;
-    private Date envio;
+    private String envio;
     private String contenido;
 
     public Mensaje() {
     
     }
 
-    public Mensaje(String receptor, Date envio, String contenido) {
+    public Mensaje(String receptor, String envio, String contenido) {
         this.emisor = "Diego";
         this.receptor = receptor;
         this.envio = envio;
@@ -36,11 +36,11 @@ public class Mensaje {
         this.receptor = receptor;
     }
 
-    public Date getEnvio() {
+    public String getEnvio() {
         return envio;
     }
 
-    public void setEnvio(Date envio) {
+    public void setEnvio(String envio) {
         this.envio = envio;
     }
 

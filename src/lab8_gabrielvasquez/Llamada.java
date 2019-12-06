@@ -6,10 +6,10 @@ public class Llamada {
  
     private String emisor;
     private String receptor;
-    private Date fecha;
+    private String fecha;
     private String tiempo;
 
-    public Llamada(String receptor, Date fecha, String tiempo) {
+    public Llamada(String receptor, String fecha, String tiempo) {
         this.emisor = "Diego";
         this.receptor = receptor;
         this.fecha = fecha;
@@ -32,11 +32,11 @@ public class Llamada {
         this.receptor = receptor;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

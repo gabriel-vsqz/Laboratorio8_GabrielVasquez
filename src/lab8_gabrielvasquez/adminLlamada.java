@@ -43,7 +43,14 @@ public class adminLlamada extends Thread {
                 mins = 0;
                 hrs++;
             }
-            duration.setText(hrs + ":" + mins + ":" + secs);
+            if (mins < 10) {
+                duration.setText("0" + hrs + ":0" + mins + ":" + secs);
+            } else if (secs < 10) {
+                duration.setText("0" + hrs + ":" + mins + ":0" + secs);
+            } else if (mins < 10 && secs <10) {
+                duration.setText("0" + hrs + ":0" + mins + ":0" + secs);
+            }
+            //duration.setText("0" + hrs + ":" + mins + ":" + secs);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {

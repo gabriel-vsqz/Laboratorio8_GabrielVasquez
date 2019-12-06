@@ -18,6 +18,13 @@ public class Principal extends javax.swing.JFrame {
         ImageIcon img = new ImageIcon("./Rigby.png");
         icon.setIcon(img);
         
+        ImageIcon img2 = new ImageIcon("./phone.png");
+        this.setIconImage(img2.getImage());
+        jd_Call.setIconImage(img2.getImage());
+        jd_modContact.setIconImage(img2.getImage());
+        jd_newContact.setIconImage(img2.getImage());
+        jd_newMessage.setIconImage(img2.getImage());
+        
         Cargar();
     }
 
@@ -449,7 +456,7 @@ public class Principal extends javax.swing.JFrame {
 
         duration.setFont(new java.awt.Font("Dialog", 1, 30)); // NOI18N
         duration.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        duration.setText("0:0:0");
+        duration.setText("00:00:00");
 
         javax.swing.GroupLayout jd_CallLayout = new javax.swing.GroupLayout(jd_Call.getContentPane());
         jd_Call.getContentPane().setLayout(jd_CallLayout);
@@ -928,18 +935,22 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_b_sendMessageMouseClicked
 
     private void b_CallMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_CallMouseClicked
-        pos = contact_table.getSelectedRow();
-        chosen = contactos.get(pos);
+        try {
+            pos = contact_table.getSelectedRow();
+            chosen = contactos.get(pos);
 
-        calling.setText(chosen.getNombre());
+            calling.setText(chosen.getNombre());
 
-        call = new adminLlamada(duration);
-        call.start();
+            call = new adminLlamada(duration);
+            call.start();
 
-        jd_Call.setModal(true);
-        jd_Call.pack();
-        jd_Call.setLocationRelativeTo(this);
-        jd_Call.setVisible(true);
+            jd_Call.setModal(true);
+            jd_Call.pack();
+            jd_Call.setLocationRelativeTo(this);
+            jd_Call.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar uno de sus contactos");
+        }
 
     }//GEN-LAST:event_b_CallMouseClicked
 

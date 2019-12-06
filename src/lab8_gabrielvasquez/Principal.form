@@ -225,11 +225,11 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="nc_mail1" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="nc_name1" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="nc_phone1" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="mc_mail" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="mc_name" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="mc_phone" alignment="0" max="32767" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="nc_edad1" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Component id="mc_edad" min="-2" pref="100" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -255,22 +255,22 @@
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel8" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="nc_name1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="mc_name" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel9" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="nc_edad1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="mc_edad" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel10" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="nc_phone1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="mc_phone" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel11" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="nc_mail1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="mc_mail" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -292,7 +292,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextArea" name="nc_dir1">
+            <Component class="javax.swing.JTextArea" name="mc_dir">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -323,7 +323,7 @@
             <Property name="text" type="java.lang.String" value="Modificar Contacto"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="nc_phone1">
+        <Component class="javax.swing.JFormattedTextField" name="mc_phone">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="####-####" subtype="-1" type="5"/>
@@ -338,7 +338,7 @@
             <Property name="text" type="java.lang.String" value="Nombre"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JSpinner" name="nc_edad1">
+        <Component class="javax.swing.JSpinner" name="mc_edad">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="13" style="0"/>
@@ -380,14 +380,14 @@
             <Property name="text" type="java.lang.String" value="Direcci&#xf3;n"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="nc_name1">
+        <Component class="javax.swing.JTextField" name="mc_name">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="13" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="nc_mail1">
+        <Component class="javax.swing.JTextField" name="mc_mail">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="13" style="0"/>

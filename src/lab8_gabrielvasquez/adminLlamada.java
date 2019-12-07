@@ -1,5 +1,6 @@
 package lab8_gabrielvasquez;
 
+import java.util.Scanner;
 import javax.swing.JLabel;
 
 public class adminLlamada extends Thread {

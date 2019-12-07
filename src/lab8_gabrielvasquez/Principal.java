@@ -17,14 +17,14 @@ public class Principal extends javax.swing.JFrame {
 
         ImageIcon img = new ImageIcon("./Rigby.png");
         icon.setIcon(img);
-        
+
         ImageIcon img2 = new ImageIcon("./phone.png");
         this.setIconImage(img2.getImage());
         jd_Call.setIconImage(img2.getImage());
         jd_modContact.setIconImage(img2.getImage());
         jd_newContact.setIconImage(img2.getImage());
         jd_newMessage.setIconImage(img2.getImage());
-        
+
         Cargar();
     }
 
@@ -773,9 +773,9 @@ public class Principal extends javax.swing.JFrame {
         String t = nc_phone.getText();
         String c = nc_mail.getText();
         String d = nc_dir.getText();
-        
+
         boolean tryout = true;
-        
+
         for (Contacto ct : contactos) {
             if (ct.getNumero().equals(t)) {
                 tryout = false;
@@ -824,10 +824,10 @@ public class Principal extends javax.swing.JFrame {
         String t = mc_phone.getText();
         String c = mc_mail.getText();
         String d = mc_dir.getText();
-
+        
+        log.conectar();
         try {
-            log.conectar();
-            log.query.execute("UPDATE Contactos SET Nombre='" + n + "', Edad='" + e + "', Teléfono='" + t + "', Correo='" + c + "', Dirección='" + d + "' WHERE ID='" + (pos + 1) + "'");
+            log.query.execute("UPDATE Contactos SET Nombre='" + n + "', Edad='" + e + "', Teléfono='" + t + "', Correo='" + c + "', Dirección='" + d + "' WHERE Teléfono='" + chosen.getNumero() + "'");
             log.commit();
 
             chosen.setNombre(n);
@@ -957,7 +957,7 @@ public class Principal extends javax.swing.JFrame {
     private void b_colgarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_colgarMouseClicked
         call.setOnCall(false);
         call.stop();
-        
+
         DefaultTableModel modelo = (DefaultTableModel) table_calls.getModel();
         Object[] row = {
             calling.getText(), duration.getText()
